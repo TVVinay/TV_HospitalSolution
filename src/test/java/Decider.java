@@ -10,7 +10,7 @@ public class Decider {
         int indoorPatient = 0;
         Hospital hospital = new Hospital();
         hospital.setLocation("Bengaluru");
-        List<Patients> patients = new Patients("ABC","Bengaluru").patientsList();
+        List<Patients> patients = new Patients().patientsList();
 
         for(Patients p : patients){
             if(p.getLocation().equalsIgnoreCase(hospital.getLocation())){

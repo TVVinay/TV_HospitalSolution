@@ -1,4 +1,4 @@
-###### Hosiptal Solution
+### Hosiptal Solution
 
 **Problem Statement**
 
