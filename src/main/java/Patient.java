@@ -15,17 +15,11 @@ public class Patient {
         visitList = new ArrayList<Visit>();
     }
 
-    public String getName()
-    {
-        return name;
-    }
-
     public Location getLocation() {
         return location;
     }
 
     public void addVisitsDates(Visit... visit){
-        //visitList.add(visit);
         Collections.addAll(visitList,visit);
     }
 

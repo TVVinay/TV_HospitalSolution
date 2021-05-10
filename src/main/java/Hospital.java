@@ -4,14 +4,12 @@ import java.util.List;
 
 public class Hospital {
 
-       //private String hospitalName;
        private Location location;
-       private List<Patient> patients;
-
+       private List<Patient> patientList;
 
        public Hospital(Location location){
            this.location = location;
-           patients = new ArrayList<>();
+           patientList = new ArrayList<>();
        }
 
     public Location getLocation(){
@@ -36,7 +34,7 @@ public class Hospital {
     }
 
     public boolean addPatient(Patient patient) {
-        return patients.add(patient);
+        return patientList.add(patient);
     }
 
     public int getTotalPatientVisited(List<Patient>patients){
