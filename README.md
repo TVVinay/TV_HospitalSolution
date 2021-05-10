@@ -1,4 +1,4 @@
-##### Hosiptal Solution
+# Hosiptal Solution
 
 **Problem Statement**
 
@@ -8,6 +8,12 @@ Eg: From last 3 days 100 OP registrations took place of which 80% are from banga
 
 **Expectations:**
 
-*Build the solution with OOP concepts
-*Find out the relation between the Hospital, Patient
-*Use viable data structures to handle at least 1000 patients per hospital
+**Level 1**
+1) Build the solution with OOP concepts
+2) Find out the relation between the Hospital, Patient
+3) Use viable data structures to handle at least 1000 patients per hospital
+
+**Level 2**
+1) A patient can visit the hospital many times.
+2) Get all the local patients who visited hospital in last 3 days
+
