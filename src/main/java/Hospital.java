@@ -1,15 +1,13 @@
-import java.util.List;
-
 public class Hospital {
 
        //private String hospitalName;
-       private String location;
+       private Patients.location location;
 
-    public void setLocation(String location) {
+    public void setLocation(Patients.location location) {
         this.location = location;
     }
 
-       public String getLocation(){
+       public Patients.location getLocation(){
            return location;
        }
 

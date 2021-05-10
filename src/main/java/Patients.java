@@ -3,22 +3,24 @@ import java.util.List;
 public class Patients {
 
     private String name;
-    private String location;
+    private Patients.location location;
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(location location) {
         this.location = location;
     }
+
+    public enum location{ Bangalore, Pune, Mumbai}
 
     public String getName()
     {
         return name;
     }
 
-    public String getLocation()
+    public Patients.location getLocation()
     {
         return location;
     }
