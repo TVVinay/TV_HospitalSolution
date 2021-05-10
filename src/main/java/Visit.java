@@ -2,7 +2,7 @@ import java.time.LocalDate;
 
 public class Visit {
    
-    public LocalDate date;
+    private LocalDate date;
 
     public Visit(LocalDate date){
         this.date = date;
