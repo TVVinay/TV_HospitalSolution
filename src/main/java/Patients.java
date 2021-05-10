@@ -1,32 +1,31 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Patients {
 
     private String name;
-    private Patients.location location;
+    private Location location;
+    public List<Visit> visitList;
 
-    public void setName(String name) {
+    public Patients(String name , Location location){
         this.name = name;
-    }
-
-    public void setLocation(location location) {
         this.location = location;
+        visitList = new ArrayList<Visit>();
     }
-
-    public enum location{ Bangalore, Pune, Mumbai}
 
     public String getName()
     {
         return name;
     }
 
-    public Patients.location getLocation()
+    public Location getLocation()
     {
         return location;
     }
 
-    public List<Patients> patientsList(){
+    public static List<Patients> patientsList(){
         return new PatientData().CreatePatientData();
     }
+
 }
 

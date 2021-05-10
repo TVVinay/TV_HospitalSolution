@@ -1,13 +1,15 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Visit {
    
-    public Date date;
-    public Visit(Date date){
+    public LocalDate date;
+
+    public Visit(LocalDate date){
         this.date = date;
     }
-    
-    public Date getVisitDate(){
+    public LocalDate getVisitDate(){
         return date;
     }
+
+
 }
