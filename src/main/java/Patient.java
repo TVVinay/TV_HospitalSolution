@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -7,25 +8,22 @@ public class Patient {
 
     private String name;
     private Location location;
-    public List<Visit> visitList;
+    private LocalDate date;
 
-    public Patient(String name , Location location){
+    public Patient(String name , Location location, LocalDate date){
         this.name = name;
         this.location = location;
-        visitList = new ArrayList<Visit>();
+        this.date = date;
     }
 
     public Location getLocation() {
         return location;
     }
 
-    public void addVisitsDates(Visit... visit){
-        Collections.addAll(visitList,visit);
+    public LocalDate getDate() {
+        return date;
     }
 
-    public List<Visit> getVisitList(){
-        return visitList;
-    }
 
 }
 

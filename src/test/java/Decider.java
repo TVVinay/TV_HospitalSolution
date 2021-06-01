@@ -1,88 +1,95 @@
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.time.LocalDate;
-import java.util.List;
 
 public class Decider {
 
-    PatientData patientData = new PatientData();
 
     @Test
     public void getLocationWisePercentage() {
+        LocalDate date = LocalDate.now();
 
         Hospital hospital = new Hospital(Location.Bangalore);
-        List<Patient> patients = patientData.patientsList();
+        Patient patient1 = new Patient("Ramesh",Location.Pune,date.minusDays(2));
+        Patient patient2 = new Patient("Suresh",Location.Bangalore,date);
+        Patient patient3 = new Patient("Raju",Location.Mumbai,date.minusDays(1));
+        Patient patient4 = new Patient("Sachin",Location.Bangalore,date);
+        Patient patient5 = new Patient("Rakesh",Location.Pune,date.minusDays(3));
 
-        System.out.println("Indoor Patient percentage : " + hospital.getIndoorPatientPercentage(patients) + "%");
-        System.out.println("Outdoor Patient percentage : " + hospital.getOutStationPatientPercentage(patients) + "%");
+        hospital.addPatient(patient1);
+        hospital.addPatient(patient2);
+        hospital.addPatient(patient3);
+        hospital.addPatient(patient4);
+        hospital.addPatient(patient5);
 
-        Assert.assertEquals(60,hospital.getIndoorPatientPercentage(patients));
-        Assert.assertEquals(40,hospital.getOutStationPatientPercentage(patients));
+        System.out.println("Total Patient Visited " + hospital.getTotalPatientVisited());
+
+        System.out.println(hospital.getIndoorPatient());
+        System.out.println(hospital.getOutdoorPatient());
+        System.out.println(hospital.getIndoorPatientPercentage());
+        System.out.println(hospital.getOutStationPatientPercentage());
+
+        Assert.assertEquals(40,hospital.getIndoorPatientPercentage());
+        Assert.assertEquals(60,hospital.getOutStationPatientPercentage());
+
 
 
     }
 
     @Test
     public void getLocationWisePatientsCount() {
+        LocalDate date = LocalDate.now();
 
         Hospital hospital = new Hospital(Location.Bangalore);
-        List<Patient> patients = patientData.patientsList();
+        Patient patient1 = new Patient("Ramesh",Location.Pune,date.minusDays(2));
+        Patient patient2 = new Patient("Suresh",Location.Bangalore,date);
+        Patient patient3 = new Patient("Raju",Location.Mumbai,date.minusDays(1));
+        Patient patient4 = new Patient("Sachin",Location.Bangalore,date);
+        Patient patient5 = new Patient("Rakesh",Location.Pune,date.minusDays(3));
 
-        long indoorPatient = hospital.getIndoorPatient(patients);
-        long outdoorPatient = hospital.getOutdoorPatient(patients);
+
+        hospital.addPatient(patient1);
+        hospital.addPatient(patient2);
+        hospital.addPatient(patient3);
+        hospital.addPatient(patient4);
+        hospital.addPatient(patient5);
+
+        long indoorPatient = hospital.getIndoorPatient();
+        long outdoorPatient = hospital.getOutdoorPatient();
 
         System.out.println("Total Patients from " + hospital.getLocation() + " : " + indoorPatient);
         System.out.println("Total Outstation Patients : " + outdoorPatient);
 
-        Assert.assertEquals(3,indoorPatient);
-        Assert.assertEquals(2,outdoorPatient);
+        Assert.assertEquals(2,indoorPatient);
+        Assert.assertEquals(3,outdoorPatient);
     }
-
     @Test
-    public void getPatientVisitsInLastThreeDays(){
+    public void getPatientVisitsPercentageInLastThreeDays(){
         LocalDate endDate=LocalDate.now();
-        LocalDate startDate=LocalDate.now().minusDays(3);
-
-        Visit visit = new Visit(endDate.minusDays(2));
-        Visit visit1 = new Visit(endDate);
 
         Hospital hospital = new Hospital(Location.Bangalore);
-        Patient patient = new Patient("ABCD",Location.Bangalore);
-        Patient patient1 = new Patient("XSF",Location.Bangalore);
-        patient.addVisitsDates(visit);
-        patient1.addVisitsDates(visit1);
+        Patient patient = new Patient("ABCD",Location.Bangalore,endDate);
+        Patient patient1 = new Patient("XSF",Location.Bangalore,endDate.minusDays(2));
+        Patient patient2 = new Patient("XSF",Location.Mumbai,endDate.minusDays(2));
+        Patient patient3 = new Patient("XSF",Location.Mumbai,endDate.minusDays(1));
 
         hospital.addPatient(patient);
         hospital.addPatient(patient1);
+        hospital.addPatient(patient2);
+        hospital.addPatient(patient3);
 
-       boolean isPatientVisitedInLast3Days = hospital.patientVisitedInNdays(patient,startDate);
-        System.out.println(isPatientVisitedInLast3Days);
+        hospital.totalIndoorPatientCountInNdays();
+        System.out.println(hospital.totalIndoorPatientCountInNdays());
+        System.out.println(hospital.totalOutdoorPatientCountInNdays());
 
-       Assert.assertTrue(isPatientVisitedInLast3Days);
+        System.out.println(hospital.getIndoorPatientPercentageInNDays());
+        System.out.println(hospital.getOutdoorPatientPercentageInNDays());
+
+        Assert.assertEquals(50,hospital.getIndoorPatientPercentageInNDays());
+        Assert.assertEquals(50,hospital.getOutdoorPatientPercentageInNDays());
+
     }
-
-    @Test
-    public void getTotalVisitsInADayBySinglePatient(){
-        LocalDate endDate=LocalDate.now();
-        LocalDate startDate=LocalDate.now().minusDays(2);
-
-        Visit visit = new Visit(endDate.minusDays(2));
-        Visit visit1 = new Visit(endDate.minusDays(2));
-        Visit visit2 = new Visit(endDate.minusDays(2));
-
-        Hospital hospital = new Hospital(Location.Bangalore);
-        Patient patient = new Patient("ABCD",Location.Bangalore);
-        patient.addVisitsDates(visit);
-        patient.addVisitsDates(visit1);
-        patient.addVisitsDates(visit2);
-
-        hospital.addPatient(patient);
-
-        long totalNumberOfVisitsInADay = hospital.patientVisitsMultipleTimes(patient,startDate);
-        System.out.println("Total Number of Visits in day by Same patient : " + totalNumberOfVisitsInADay);
-        Assert.assertEquals(3,totalNumberOfVisitsInADay);
-    }
-
 
 }
 

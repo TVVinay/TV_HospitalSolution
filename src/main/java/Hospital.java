@@ -4,51 +4,72 @@ import java.util.List;
 
 public class Hospital {
 
-       private Location location;
-       private List<Patient> patientList;
+    private Location location;
+    private List<Patient> patientList;
 
-       public Hospital(Location location){
-           this.location = location;
-           patientList = new ArrayList<>();
-       }
+    public Hospital(Location location) {
+        this.location = location;
+        patientList = new ArrayList<>();
+    }
 
-    public Location getLocation(){
-           return location;
-       }
+    public Location getLocation() {
+        return location;
+    }
 
-    public long getIndoorPatient(List<Patient>patientsList) {
-        return  patientsList.stream()
+    public long getIndoorPatient() {
+        return patientList.stream()
                 .filter(patient1 -> patient1.getLocation().equals(Location.Bangalore)).count();
 
     }
-    public long getOutdoorPatient(List<Patient>patientsList) {
-        return patientsList.size() - getIndoorPatient(patientsList);
+
+    public long getOutdoorPatient() {
+        return getTotalPatientVisited() - getIndoorPatient();
     }
 
-    public long getIndoorPatientPercentage(List<Patient>patientsList){
-           return (getIndoorPatient(patientsList)*100/getTotalPatientVisited(patientsList));
+    public long getIndoorPatientPercentage() {
+        return (getIndoorPatient() * 100 / getTotalPatientVisited());
     }
 
-    public long getOutStationPatientPercentage(List<Patient>patientsList){
-        return (getOutdoorPatient(patientsList)*100/getTotalPatientVisited(patientsList));
+    public long getOutStationPatientPercentage() {
+        return (getOutdoorPatient() * 100 / getTotalPatientVisited());
     }
 
-    public boolean addPatient(Patient patient) {
-        return patientList.add(patient);
+    public void addPatient(Patient patient) {
+        patientList.add(patient);
     }
 
-    public int getTotalPatientVisited(List<Patient>patients){
-          return patients.size();
+    public int getTotalPatientVisited() {
+        return patientList.size();
     }
 
-    public boolean patientVisitedInNdays(Patient patient, LocalDate date){
-         List<Visit> visits =  patient.getVisitList();
-         return visits.stream().anyMatch(visit -> visit.getVisitDate().isAfter(date));
+
+    public int totalIndoorPatientCountInNdays() {
+        int count = 0;
+        for (Patient p : patientList) {
+            if (p.getDate().isBefore(LocalDate.now()) || p.getDate().isAfter(LocalDate.now().minusDays(3))) {
+                if (p.getLocation().equals(Location.Bangalore)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
-    public long patientVisitsMultipleTimes(Patient patient, LocalDate date){
-        List<Visit> visits =  patient.getVisitList();
-        return visits.stream().filter(visit -> visit.getVisitDate().isEqual(date)).count();
+    public int totalOutdoorPatientCountInNdays() {
+        for (Patient p : patientList) {
+            if (p.getDate().isBefore(LocalDate.now()) || p.getDate().isAfter(LocalDate.now().minusDays(3))) {
+                return patientList.size() - totalIndoorPatientCountInNdays();
+            }
+        }
+        return 0;
+    }
+
+    public int getIndoorPatientPercentageInNDays() {
+      return totalIndoorPatientCountInNdays() * 100 / getTotalPatientVisited();
+    }
+
+    public int getOutdoorPatientPercentageInNDays() {
+        return totalOutdoorPatientCountInNdays() * 100 /getTotalPatientVisited();
     }
 }
 
