@@ -73,21 +73,23 @@ public class Decider {
         Patient patient1 = new Patient("XSF",Location.Bangalore,endDate.minusDays(2));
         Patient patient2 = new Patient("XSF",Location.Mumbai,endDate.minusDays(2));
         Patient patient3 = new Patient("XSF",Location.Mumbai,endDate.minusDays(1));
+        Patient patient4 = new Patient("XSF",Location.Mumbai,endDate);
 
         hospital.addPatient(patient);
         hospital.addPatient(patient1);
         hospital.addPatient(patient2);
         hospital.addPatient(patient3);
+        hospital.addPatient(patient4);
 
         hospital.totalIndoorPatientCountInNdays();
         System.out.println(hospital.totalIndoorPatientCountInNdays());
         System.out.println(hospital.totalOutdoorPatientCountInNdays());
 
-        System.out.println(hospital.getIndoorPatientPercentageInNDays());
-        System.out.println(hospital.getOutdoorPatientPercentageInNDays());
+        System.out.println("Indoor Patient percentage is : "+hospital.getIndoorPatientPercentageInNDays()+"%");
+        System.out.println("OutStation Patient percentage is : "+hospital.getOutdoorPatientPercentageInNDays()+"%");
 
-        Assert.assertEquals(50,hospital.getIndoorPatientPercentageInNDays());
-        Assert.assertEquals(50,hospital.getOutdoorPatientPercentageInNDays());
+        Assert.assertEquals(40,hospital.getIndoorPatientPercentageInNDays());
+        Assert.assertEquals(60,hospital.getOutdoorPatientPercentageInNDays());
 
     }
 

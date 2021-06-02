@@ -43,32 +43,22 @@ public class Hospital {
     }
 
 
-    public int totalIndoorPatientCountInNdays() {
-        int count = 0;
-        for (Patient p : patientList) {
-            if (p.getDate().isBefore(LocalDate.now()) || p.getDate().isAfter(LocalDate.now().minusDays(3))) {
-                if (p.getLocation().equals(Location.Bangalore)) {
-                    count++;
-                }
-            }
-        }
-        return count;
+    public long totalIndoorPatientCountInNdays() {
+        return patientList.stream().filter(patient -> patient.getDate().isBefore(LocalDate.now())
+                || patient.getDate().isAfter(LocalDate.now().minusDays(3))).filter(patient -> patient.getLocation().equals(Location.Bangalore)).count();
     }
 
-    public int totalOutdoorPatientCountInNdays() {
-        for (Patient p : patientList) {
-            if (p.getDate().isBefore(LocalDate.now()) || p.getDate().isAfter(LocalDate.now().minusDays(3))) {
-                return patientList.size() - totalIndoorPatientCountInNdays();
-            }
-        }
-        return 0;
+    public long totalOutdoorPatientCountInNdays() {
+       return patientList.stream().filter(patient -> patient.getDate().isBefore(LocalDate.now())
+        || patient.getDate().isAfter(LocalDate.now().minusDays(3))).count() - totalIndoorPatientCountInNdays();
+
     }
 
-    public int getIndoorPatientPercentageInNDays() {
+    public long getIndoorPatientPercentageInNDays() {
       return totalIndoorPatientCountInNdays() * 100 / getTotalPatientVisited();
     }
 
-    public int getOutdoorPatientPercentageInNDays() {
+    public long getOutdoorPatientPercentageInNDays() {
         return totalOutdoorPatientCountInNdays() * 100 /getTotalPatientVisited();
     }
 }
