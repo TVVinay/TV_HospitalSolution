@@ -24,6 +24,10 @@ public class Patient {
         return date;
     }
 
+    public String getName(){
+        return name;
+    }
+
 
 }
 

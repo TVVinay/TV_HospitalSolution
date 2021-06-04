@@ -44,8 +44,11 @@ public class Hospital {
 
 
     public long totalIndoorPatientCountInNdays() {
-        return patientList.stream().filter(patient -> patient.getDate().isBefore(LocalDate.now())
-                || patient.getDate().isAfter(LocalDate.now().minusDays(3))).filter(patient -> patient.getLocation().equals(Location.Bangalore)).count();
+
+        return patientList.stream().filter(patient ->patient.getDate().isBefore(LocalDate.now())
+        || patient.getDate().isAfter(LocalDate.now().minusDays(3))).filter(patient -> patient.getLocation()
+        .equals(Location.Bangalore)).count();
+
     }
 
     public long totalOutdoorPatientCountInNdays() {

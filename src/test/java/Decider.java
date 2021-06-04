@@ -11,11 +11,11 @@ public class Decider {
         LocalDate date = LocalDate.now();
 
         Hospital hospital = new Hospital(Location.Bangalore);
-        Patient patient1 = new Patient("Ramesh",Location.Pune,date.minusDays(2));
-        Patient patient2 = new Patient("Suresh",Location.Bangalore,date);
-        Patient patient3 = new Patient("Raju",Location.Mumbai,date.minusDays(1));
-        Patient patient4 = new Patient("Sachin",Location.Bangalore,date);
-        Patient patient5 = new Patient("Rakesh",Location.Pune,date.minusDays(3));
+        Patient patient1 = new PatientBuilder().setName("Vinay").setLocation(Location.Mumbai).getPatientBuilder();
+        Patient patient2 = new PatientBuilder().setName("Rajesh").setLocation(Location.Bangalore).getPatientBuilder();
+        Patient patient3 = new PatientBuilder().setName("Raju").setLocation(Location.Mumbai).getPatientBuilder();
+        Patient patient4 = new PatientBuilder().setName("Sachin").setLocation(Location.Bangalore).getPatientBuilder();
+        Patient patient5 = new PatientBuilder().setName("Ravi").setLocation(Location.Pune).getPatientBuilder();
 
         hospital.addPatient(patient1);
         hospital.addPatient(patient2);
@@ -42,11 +42,11 @@ public class Decider {
         LocalDate date = LocalDate.now();
 
         Hospital hospital = new Hospital(Location.Bangalore);
-        Patient patient1 = new Patient("Ramesh",Location.Pune,date.minusDays(2));
-        Patient patient2 = new Patient("Suresh",Location.Bangalore,date);
-        Patient patient3 = new Patient("Raju",Location.Mumbai,date.minusDays(1));
-        Patient patient4 = new Patient("Sachin",Location.Bangalore,date);
-        Patient patient5 = new Patient("Rakesh",Location.Pune,date.minusDays(3));
+        Patient patient1 = new PatientBuilder().setName("Vinay").setLocation(Location.Mumbai).getPatientBuilder();
+        Patient patient2 = new PatientBuilder().setName("Rajesh").setLocation(Location.Bangalore).getPatientBuilder();
+        Patient patient3 = new PatientBuilder().setName("Raju").setLocation(Location.Mumbai).getPatientBuilder();
+        Patient patient4 = new PatientBuilder().setName("Sachin").setLocation(Location.Bangalore).getPatientBuilder();
+        Patient patient5 = new PatientBuilder().setName("Ravi").setLocation(Location.Pune).getPatientBuilder();
 
 
         hospital.addPatient(patient1);
@@ -64,27 +64,28 @@ public class Decider {
         Assert.assertEquals(2,indoorPatient);
         Assert.assertEquals(3,outdoorPatient);
     }
+
     @Test
     public void getPatientVisitsPercentageInLastThreeDays(){
         LocalDate endDate=LocalDate.now();
 
         Hospital hospital = new Hospital(Location.Bangalore);
-        Patient patient = new Patient("ABCD",Location.Bangalore,endDate);
-        Patient patient1 = new Patient("XSF",Location.Bangalore,endDate.minusDays(2));
-        Patient patient2 = new Patient("XSF",Location.Mumbai,endDate.minusDays(2));
-        Patient patient3 = new Patient("XSF",Location.Mumbai,endDate.minusDays(1));
-        Patient patient4 = new Patient("XSF",Location.Mumbai,endDate);
+        Patient patient1 = new PatientBuilder().setName("Vinay").setLocation(Location.Mumbai).setDate(endDate).getPatientBuilder();
+        Patient patient2 = new PatientBuilder().setName("Rajesh").setLocation(Location.Bangalore).setDate(endDate.minusDays(3)).getPatientBuilder();
+        Patient patient3 = new PatientBuilder().setName("Raju").setLocation(Location.Mumbai).setDate(endDate.minusDays(2)).getPatientBuilder();
+        Patient patient4 = new PatientBuilder().setName("Sachin").setLocation(Location.Bangalore).setDate(endDate).getPatientBuilder();
+        Patient patient5 = new PatientBuilder().setName("Ravi").setLocation(Location.Pune).setDate(endDate.minusDays(1)).getPatientBuilder();
 
-        hospital.addPatient(patient);
         hospital.addPatient(patient1);
         hospital.addPatient(patient2);
         hospital.addPatient(patient3);
         hospital.addPatient(patient4);
+        hospital.addPatient(patient5);
 
         hospital.totalIndoorPatientCountInNdays();
+
         System.out.println(hospital.totalIndoorPatientCountInNdays());
         System.out.println(hospital.totalOutdoorPatientCountInNdays());
-
         System.out.println("Indoor Patient percentage is : "+hospital.getIndoorPatientPercentageInNDays()+"%");
         System.out.println("OutStation Patient percentage is : "+hospital.getOutdoorPatientPercentageInNDays()+"%");
 
